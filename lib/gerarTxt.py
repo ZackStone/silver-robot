@@ -2,6 +2,7 @@ from random import randint
 import numpy as np   
 import sys
 from decimal import Decimal
+import os
 
 def randomInt(high, size):
 	a = np.random.randint(high, size=(size, size))
@@ -17,7 +18,10 @@ def randomDecimal(high, size):
 
 def writeFile(txt, fileName):
 	txt = txt.replace('\n','')
-	f = open('temp/'+fileName, 'w')
+
+	curpath = os.path.dirname(os.path.abspath(__file__))
+	filepath = curpath + '/../temp/' + fileName
+	f = open(filepath, 'w')
 	f.write(txt)
 	f.close()
 
@@ -51,7 +55,9 @@ def clInput():
 	fileName = sys.argv[4]
 	numClasses = sys.argv[5]
 
-	txt = numClasses + '\r\n'
+
+def gerarTxt(numType, high, size, fileName, numClasses):
+	txt = str(numClasses) + '\r\n'
 
 	if numType == 'd':
 		txt += randomDecimal(Decimal(high), size)
@@ -60,7 +66,11 @@ def clInput():
 
 	writeFile(txt, fileName)
 
-try:
-	clInput()
-except:
-	consoleInput()		
+def main():
+	try:
+		clInput()
+	except:
+		consoleInput()
+
+if 'gerar_txt.py' in sys.argv[0]:
+	main()
