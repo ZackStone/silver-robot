@@ -31,7 +31,6 @@ def insert(num, ix):
 	matsum[ix] += num
 
 def reduceMatSum():
-	return # lento
 	valmin = min(matsum.values())
 	for i in matsum:
 		matsum[i] -= valmin
@@ -39,7 +38,7 @@ def reduceMatSum():
 def updateIndex():
 	global mat, matsum, matix
 
-	reduceMatSum()
+	#reduceMatSum() # lento
 
 	matix = sorted(matsum.items(), key=operator.itemgetter(1))
 	if len(matix) <= 0: 
@@ -47,8 +46,10 @@ def updateIndex():
 	return matix[0][0]
 
 def printDiffMax():
-	diffMax = str(matix[len(matix)-1][1])
-	print('Diferenca maxima entre os grupos: ' + diffMax)
+	diffMax = matix[len(matix)-1][1]
+	diffMin = matix[0][1]
+	diff = str(diffMax - diffMin)
+	print('Diferenca maxima entre os grupos: ' + diff)
 
 def saveOutput():
 	curpath = os.path.dirname(os.path.abspath(__file__))
@@ -83,8 +84,10 @@ def run(nums, classes):
 	initialize()
 	nums.sort(reverse=True)
 
+
 	for i in range(0, len(nums)):
 		ix = i % classes
-		insert(nums[i], ix)
+		insertNum = nums[i]
+		insert(insertNum, ix)
 
 	saveOutput()

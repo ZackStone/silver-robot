@@ -16,7 +16,7 @@ classes = 0
 # ============================================
 
 def gerarArquivo():
-	gerarTxt('i', 1000, 1000000, fileName, 2)
+	gerarTxt('i', 100, 900, fileName, 10)
 
 def lerArquivo():
 	global nums, classes
