@@ -8,7 +8,7 @@ from lib.silverRobot import run
 
 
 fileName = 'teste.txt'
-gerarTxt('i', 100, 10, fileName, 2)
+gerarTxt('i', 50000, 1000, fileName, 20)
 
 f = open('temp/' + fileName, 'r')
 classes = int(f.readline())
