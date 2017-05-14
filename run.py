@@ -2,20 +2,49 @@ import os
 import numpy as np   
 import sys
 from decimal import Decimal
+import time
 
 from lib.gerarTxt import gerarTxt
-from lib.silverRobot import run
+from lib.silverRobot import run, printGlobals, printDiffMax
 
+# ============================================
 
-fileName = 'teste.txt'
-gerarTxt('i', 50000, 1000, fileName, 20)
-
-f = open('temp/' + fileName, 'r')
-classes = int(f.readline())
+fileName = 'input.txt'
 nums = []
-for line in f:
-	a = line.split(';')
-	for n in a:
-		nums.append(Decimal(n))
+classes = 0
 
-run(nums, classes)
+# ============================================
+
+def gerarArquivo():
+	gerarTxt('i', 1000, 1000000, fileName, 2)
+
+def lerArquivo():
+	global nums, classes
+
+	f = open('temp/' + fileName, 'r')
+	classes = int(f.readline())
+	nums = []
+	for line in f:
+		a = line.split(';')
+		for n in a:
+			nums.append(Decimal(n))
+
+def main():
+	start_time = time.time()
+	run(nums, classes)
+	print(str(round(time.time() - start_time, 3)) + " seconds")
+	printDiffMax()
+	#printGlobals()
+
+# ============================================
+# ============================================
+
+print('Gerando Arquivo')
+gerarArquivo()
+print('Arquivo Gerado')
+print('Lendo Arquivo')
+lerArquivo()
+print('Arquivo Lido')
+print('Iniciando separacao')
+main()
+print('Fim')

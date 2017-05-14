@@ -1,19 +1,17 @@
 from random import randint
-import numpy as np   
+import numpy as np
 import sys
 from decimal import Decimal
 import os
 
 def randomInt(high, size):
-	a = np.random.randint(high, size=(size, size))
-	b = np.array2string(a[0], separator=';')
-	b = b[1:len(b)-1]
+	a = np.random.randint(high, size=(size,))
+	b = ';'.join(map(str, a))
 	return b
 
 def randomDecimal(high, size):
 	a = np.random.uniform(low=0, high=high, size=(size,))
-	b = np.array2string(a, separator=';')
-	b = b[1:len(b)-1]
+	b = ';'.join(map(str, a))
 	return b
 
 def writeFile(txt, fileName):
@@ -71,6 +69,9 @@ def main():
 		clInput()
 	except:
 		consoleInput()
+
+# ============================================
+# ============================================
 
 if 'gerar_txt.py' in sys.argv[0]:
 	main()
