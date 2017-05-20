@@ -3,6 +3,8 @@ import sys
 from decimal import Decimal
 import operator
 import numpy as np
+import time
+import datetime
 
 # ============================================
 
@@ -52,9 +54,14 @@ def printDiffMax():
 	print('Diferenca maxima entre os grupos: ' + diff)
 
 def saveOutput():
-	
+
 	curpath = os.path.dirname(os.path.abspath(__file__))
-	filepath = os.path.join(curpath, '..', 'temp', 'result.txt')
+
+	#strts = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d-%H%M%S')
+	#filename = 'result-' + strts + '.txt'
+
+	filename = 'result.txt'
+	filepath = os.path.join(curpath, '..', 'temp', filename)
 
 	f = open(filepath, 'w')
 	for i in mat:

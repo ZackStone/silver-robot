@@ -16,7 +16,8 @@ classes = 0
 # ============================================
 
 def gerarArquivo():
-	gerarTxt('i', 100, 900, fileName, 10)
+	# 			numType, 	high, 	size, 	fileName, 	numClasses):
+	gerarTxt(	'i', 		10000, 	10000, 	fileName, 	100)
 
 def lerArquivo():
 	global nums, classes
@@ -42,9 +43,13 @@ def main():
 # ============================================
 # ============================================
 
-print('Gerando Arquivo')
-gerarArquivo()
-print('Arquivo Gerado')
+if len(sys.argv) > 1:
+	fileName = sys.argv[1]
+else:
+	print('Gerando Arquivo')
+	gerarArquivo()
+	print('Arquivo Gerado')
+
 print('Lendo Arquivo')
 lerArquivo()
 print('Arquivo Lido')
