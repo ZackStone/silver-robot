@@ -52,8 +52,10 @@ def printDiffMax():
 	print('Diferenca maxima entre os grupos: ' + diff)
 
 def saveOutput():
+	
 	curpath = os.path.dirname(os.path.abspath(__file__))
-	filepath = curpath + '/../temp/' + 'result.txt'
+	filepath = os.path.join(curpath, '..', 'temp', 'result.txt')
+
 	f = open(filepath, 'w')
 	for i in mat:
 		linha = (str(sum(i)) + ';' +  ';'.join(map(str, i)))

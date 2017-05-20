@@ -21,7 +21,10 @@ def gerarArquivo():
 def lerArquivo():
 	global nums, classes
 
-	f = open('temp/' + fileName, 'r')
+	curpath = os.path.dirname(os.path.abspath(__file__))
+	filepath = os.path.join(curpath, 'temp', fileName)
+
+	f = open(filepath, 'r')
 	classes = int(f.readline())
 	nums = []
 	for line in f:

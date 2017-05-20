@@ -18,7 +18,7 @@ def writeFile(txt, fileName):
 	txt = txt.replace('\n','')
 
 	curpath = os.path.dirname(os.path.abspath(__file__))
-	filepath = curpath + '/../temp/' + fileName
+	filepath = os.path.join(curpath, '..', 'temp', fileName)
 	f = open(filepath, 'w')
 	f.write(txt)
 	f.close()
