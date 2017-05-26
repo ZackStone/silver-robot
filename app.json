@@ -1,0 +1,8 @@
+{
+  "name": "silver-robot",
+  "description": "I'm Silver Robot",
+  "image": "heroku/python",
+  "repository": "https://github.com/YitzhakAndrade/silver-robot",
+  "keywords": [],
+  "addons": []
+}
