@@ -47,11 +47,17 @@ def updateIndex():
 		return 0
 	return matix[0][0]
 
-def printDiffMax():
+def diffMax():
 	diffMax = matix[len(matix)-1][1]
 	diffMin = matix[0][1]
 	diff = str(diffMax - diffMin)
-	print('Diferenca maxima entre os grupos: ' + diff)
+	return diff
+
+def printDiffMax():
+	str_print = 'Diferenca maxima entre os grupos: ' + diffMax()
+	print(str_print)
+	return str_print
+
 
 def saveOutput():
 
@@ -99,4 +105,6 @@ def run(nums, classes):
 		insertNum = nums[i]
 		insert(insertNum, ix)
 
-	saveOutput()
+	#saveOutput()
+
+	return printDiffMax()

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>{{action}}</h1>
+
+<form action="/{{action}}" method="post" enctype="multipart/form-data" accept="text/*">
+	Qtd classes:<br>
+	<input type="text" name="qtd_classes" value="2">
+	<br><br>
+
+	<input type="file" name="the_file" />
+
+	<br><br>
+	<input type="submit" value="Submit">
+</form> 
+
+</body>
+</html>
