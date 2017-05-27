@@ -13,7 +13,7 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     #do whatevr here...
-    return "Hello Heruko"
+    return "Hello Heruko<br>http://silver-robot.herokuapp.com/guloso/"
 
 @app.route('/hello')
 def hello():
