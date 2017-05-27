@@ -5,20 +5,15 @@ from flask import render_template
 from silverRobot.guloso.guloso import guloso_run
 from decimal import Decimal
 
-
-
 app = Flask(__name__)
-
 
 @app.route("/")
 def index():
-    #do whatevr here...
-    return 'Hello Heruko<br><a href="http://silver-robot.herokuapp.com/guloso/">Guloso</a>'
+    return render_template('index.html')
 
-@app.route('/hello')
-def hello():
-    return 'Hello, World'
-
+# ====================================================
+#       Exemplos
+# ====================================================
 @app.route('/user/<username>')
 def show_user_profile(username):
     # show the user profile for that user
@@ -29,41 +24,15 @@ def show_post(post_id):
     # show the post with the given id, the id is an integer
     return 'Post %d' % post_id
 
-
-@app.route('/projects/')
-def projects():
-    return 'The project page'
-
-@app.route('/about')
-def about():
-    return 'The about page'
-
-
-
 @app.route('/hello2/')
 @app.route('/hello2/<name>')
 def hello2(name=None):
     return render_template('hello2.html', name=name)
+# ====================================================
+#       Fim Exemplos
+# ====================================================
 
-
-
-def do_the_login():
-	return 'firstname: ' + request.form['firstname'] + '<br/>lastname: ' + request.form['lastname']
-def show_the_login_form():
-	return render_template('login.html')
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        print(request.form)
-        return do_the_login()
-    else:
-        return show_the_login_form()
-
-
-
-
-def guloso_post():
+def lerArquivo():
     qtd_classes = int(request.form['qtd_classes'])
 
     f = request.files['the_file']
@@ -76,8 +45,9 @@ def guloso_post():
         if n.isnumeric():
             nums.append(Decimal(n))
 
-    return guloso_run(nums, qtd_classes)
+    return qtd_classes, nums
 
+# ====================================================
 
 @app.route('/guloso', methods=['GET', 'POST'])
 def guloso():
@@ -85,16 +55,24 @@ def guloso():
         return guloso_post()
     else:
         return render_template('upload.html', action='guloso')
+def guloso_post():
+    qtd_classes, nums = lerArquivo()
+    return guloso_run(nums, qtd_classes)
 
+# ====================================================
 
+@app.route('/genetico', methods=['GET', 'POST'])
+def genetico():
+    if request.method == 'POST':
+        return genetico_post()
+    else:
+        return render_template('upload.html', action='genetico')
+def genetico_post():
+    qtd_classes, nums = lerArquivo()
+    return ':P'
 
-
-
-
-
-#
 # ==================================================
+#       LOCAL
 # ==================================================
-#
 if __name__ == "__main__":
     app.run(debug=True)
