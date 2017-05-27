@@ -2,7 +2,7 @@ from flask import Flask
 from flask import request
 from flask import render_template
 
-from silver_robot.lib.silverRobot import run
+from silverRobot.guloso.guloso import guloso_run
 from decimal import Decimal
 
 
@@ -76,7 +76,7 @@ def guloso_post():
         if n.isnumeric():
             nums.append(Decimal(n))
 
-    return run(nums, qtd_classes)
+    return guloso_run(nums, qtd_classes)
 
 
 @app.route('/guloso', methods=['GET', 'POST'])
