@@ -81,6 +81,7 @@ def genetico_post():
     taxaMutacao = Decimal(request.form['taxaMutacao'])
 
     solucao = genetico.genetico_run(classes, numeros, geracoes, tamanhoPopulacao, qtdIteracoes, qtdIndividuosElitismo, taxaCruzamento, taxaMutacao)
+    return render_template('genetico_solucao.html', request=request, solucao=str(solucao))
     return str(solucao)
 
 # ==================================================

@@ -1,0 +1,47 @@
+{% extends "shared/layout.html" %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<div class="row">
+	<div class="col-md-4">
+		<div class="form-group">
+			<button onclick="voltar();" class="btn btn-default">
+				<i class="glyphicon glyphicon-arrow-left"></i> Voltar
+			</button>
+			<button onclick="repetir();" class="btn btn-default">
+				<i class="glyphicon glyphicon-refresh"></i> Repetir
+			</button>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				Solução
+			</div>
+			<div class="panel-body">
+			    {{ solucao }}
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-4">
+		<table class="table table-striped table-bordered">
+		<thead>
+			<th>Parâmetro</th>
+			<th>Valor</th>
+		</thead>
+		{% for p in request.form %}
+			<tr>
+				<td>{{p}}</td>
+				<td>{{request.form[p]}}</td>
+			</tr>
+		{% endfor %}
+		</table>
+	</div>
+</div>
+
+{% endblock %}
