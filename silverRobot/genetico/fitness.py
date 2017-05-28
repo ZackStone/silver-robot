@@ -1,5 +1,5 @@
 class Fitness:
 	def calcularFitness(populacao):
-		for individuo in populacao:
-			individuo.calcularFitness()
+		for i in range(0, len(populacao)):
+			populacao[i].calcularFitness()
 		return populacao

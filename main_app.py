@@ -2,8 +2,11 @@ from flask import Flask
 from flask import request
 from flask import render_template
 
-from silverRobot.guloso.guloso import guloso_run
 from decimal import Decimal
+
+import silverRobot.guloso.guloso as guloso
+import silverRobot.genetico.genetico as genetico
+
 
 app = Flask(__name__)
 
@@ -50,26 +53,35 @@ def lerArquivo():
 # ====================================================
 
 @app.route('/guloso', methods=['GET', 'POST'])
-def guloso():
+def route_guloso():
     if request.method == 'POST':
         return guloso_post()
     else:
         return render_template('upload.html', action='guloso')
 def guloso_post():
     qtd_classes, nums = lerArquivo()
-    return guloso_run(nums, qtd_classes)
+    return guloso.guloso_run(nums, qtd_classes)
 
 # ====================================================
 
 @app.route('/genetico', methods=['GET', 'POST'])
-def genetico():
+def route_genetico():
     if request.method == 'POST':
         return genetico_post()
     else:
         return render_template('upload.html', action='genetico')
 def genetico_post():
-    qtd_classes, nums = lerArquivo()
-    return ':P'
+    classes, numeros = lerArquivo()
+
+    qtdIteracoes = int(request.form['qtdIteracoes'])
+    geracoes = int(request.form['geracoes'])
+    tamanhoPopulacao = int(request.form['tamanhoPopulacao'])
+    qtdIndividuosElitismo = int(request.form['qtdIndividuosElitismo'])
+    taxaCruzamento = Decimal(request.form['taxaCruzamento'])
+    taxaMutacao = Decimal(request.form['taxaMutacao'])
+
+    solucao = genetico.genetico_run(classes, numeros, geracoes, tamanhoPopulacao, qtdIteracoes, qtdIndividuosElitismo, taxaCruzamento, taxaMutacao)
+    return str(solucao)
 
 # ==================================================
 #       LOCAL

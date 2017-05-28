@@ -1,27 +1,29 @@
-from config import Config
-from individuo import Individuo
-from populacao import Populacao
-from cruzamento import Cruzamento
-from mutacao import Mutacao
-from selecao import Selecao
-from fitness import Fitness
+from .config import Config
+from .individuo import Individuo
+from .populacao import Populacao
+from .cruzamento import Cruzamento
+from .mutacao import Mutacao
+from .selecao import Selecao
+from .fitness import Fitness
+import copy
 
 class Genetico:
 
 	individuos = []
+	solucao = None
 
 	def __init__(self, individuos=[]):
 		self.individuos = individuos
 
 	def ag(self):
-		print('####\n\t\tpopulacao inicial\n####')
+		#print('####\n\t\tpopulacao inicial\n####')
 		populacao = Populacao.gerarPopulacaoInicial()
 		populacao = Fitness.calcularFitness(populacao)
 
 		novaPopulacao = []
 		# ate que o numero de geracoes finalize
 		for i in range(0, Config.geracoes):
-			print('####\n\t\tgeracao ' + str(i) + '\n####')
+			#print('####\n\t\tgeracao ' + str(i) + '\n####')
 			
 			while len(novaPopulacao) < (Config.tamanhoPopulacao - Config.qtdIndividuosElitismo):
 				# selecione dois individuos
@@ -42,32 +44,39 @@ class Genetico:
 			novaPopulacao.extend(melhores)
 			
 			# avalie todos os individuos
-			Fitness.calcularFitness(novaPopulacao)
+			novaPopulacao = Fitness.calcularFitness(novaPopulacao)
 			
+			###################################
+			melhor = Selecao.melhor(populacao)
+			melhor = Fitness.calcularFitness([melhor])[0]
+			if self.solucao == None or melhor.fitness < self.solucao.fitness:
+				self.solucao = copy.deepcopy(melhor)
+			###################################
+
+
 			populacao = []			
 			populacao.extend(novaPopulacao)			
 			novaPopulacao = []			
 			melhores = []
 
-		print('####\n\t\tfim geracoes\n####')
+		#print('####\n\t\tfim geracoes\n####')
 
-	def rodar(self):
-		for i in range(0, Config.qtdIteracoes):
-			print('##\n\t\titeracao ' + str(i) + '\n##')
-			self.ag()
-		print('##\n\t\tfim algoritmo\n##')
+def genetico_run(classes, numeros, geracoes, tamanhoPopulacao, qtdIteracoes, qtdIndividuosElitismo, taxaCruzamento, taxaMutacao):
 
+	Config.geracoes = geracoes
+	Config.tamanhoPopulacao = tamanhoPopulacao
+	Config.qtdIteracoes = qtdIteracoes
+	Config.qtdIndividuosElitismo = qtdIndividuosElitismo
+	Config.taxaCruzamento = taxaCruzamento
+	Config.taxaMutacao = taxaMutacao
+	Config.classes = classes
+	Config.numeros = numeros
 
+	g = Genetico()
 
-Config.geracoes = 10
-Config.tamanhoPopulacao = 1000
-Config.qtdIteracoes = 1
-Config.qtdIndividuosElitismo = 2
-Config.taxaCruzamento = 0.80
-Config.taxaMutacao = 0.05
-
-Config.classes = 2
-Config.numeros = [14,99,110,166,712,760,642,296,113,900,456,358,289,849,137,542,672,247,505,712]
-
-g = Genetico()
-g.rodar()
+	for i in range(0, Config.qtdIteracoes):
+		#print('##\n\t\titeracao ' + str(i) + '\n##')
+		g.ag()
+	#print('##\n\t\tfim algoritmo\n##')
+	#print(g.solucao)
+	return g.solucao

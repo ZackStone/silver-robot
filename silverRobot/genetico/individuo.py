@@ -1,4 +1,4 @@
-from config import Config
+from .config import Config
 
 class Individuo:
 	nums = []
@@ -10,13 +10,8 @@ class Individuo:
 	
 	def calcularFitness(self):
 		soma = [0] * Config.classes
-		for i in range(0, len(self.nums)-1):
+		for i in range(0, len(self.nums)):
 			classe = self.nums[i]
 			soma[classe] += Config.numeros[i]
 		fitness = max(soma) - min(soma)
 		self.fitness = fitness
-
-		
-		print(self)
-		print(soma)
-		print('.')

@@ -1,4 +1,4 @@
-from config import Config
+from .config import Config
 import random
 
 class Selecao:
@@ -15,5 +15,9 @@ class Selecao:
 
 	def melhores(populacao):
 		pop = sorted(populacao, key=lambda x: x.fitness)
-		pop = pop[0:Config.qtdIndividuosElitismo]		
+		pop = pop[0:Config.qtdIndividuosElitismo]
 		return pop
+
+	def melhor(populacao):
+		pop = sorted(populacao, key=lambda x: x.fitness)
+		return pop[0]

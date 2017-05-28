@@ -1,5 +1,5 @@
-from config import Config
-from individuo import Individuo
+from .config import Config
+from .individuo import Individuo
 import random
 
 class Populacao:
