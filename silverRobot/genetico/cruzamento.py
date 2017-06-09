@@ -20,7 +20,10 @@ class Cruzamento:
 
 		tamanho = len(i0.nums)
 		metade = int(tamanho / 2)
-
+		
+		corte = random.randint(0, tamanho-1)
+		metade = corte
+		
 		'''
 		print(metade)
 		'''
