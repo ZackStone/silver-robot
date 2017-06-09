@@ -16,7 +16,7 @@ class Genetico:
 		self.individuos = individuos
 
 	def ag(self):
-		resultadoImpar = (Config.numeros.sum() % 2 == 1)
+		resultadoImpar = (sum(Config.numeros) % 2 == 1)
 		
 		#print('####\n\t\tpopulacao inicial\n####')
 		populacao = Populacao.gerarPopulacaoInicial()
