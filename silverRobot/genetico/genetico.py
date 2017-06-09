@@ -16,6 +16,8 @@ class Genetico:
 		self.individuos = individuos
 
 	def ag(self):
+		resultadoImpar = (Config.numeros.sum() % 2 == 1)
+		
 		#print('####\n\t\tpopulacao inicial\n####')
 		populacao = Populacao.gerarPopulacaoInicial()
 		populacao = Fitness.calcularFitness(populacao)
@@ -51,6 +53,8 @@ class Genetico:
 			melhor = Fitness.calcularFitness([melhor])[0]
 			if self.solucao == None or melhor.fitness < self.solucao.fitness:
 				self.solucao = copy.deepcopy(melhor)
+				if self.solucao.fitness == 0 or (self.solucao.fitness == 1 and resultadoImpar):
+					return True				
 			###################################
 
 
@@ -58,7 +62,8 @@ class Genetico:
 			populacao.extend(novaPopulacao)			
 			novaPopulacao = []			
 			melhores = []
-
+			
+		return False
 		#print('####\n\t\tfim geracoes\n####')
 
 def genetico_run(classes, numeros, geracoes, tamanhoPopulacao, qtdIteracoes, qtdIndividuosElitismo, taxaCruzamento, taxaMutacao):
@@ -76,7 +81,9 @@ def genetico_run(classes, numeros, geracoes, tamanhoPopulacao, qtdIteracoes, qtd
 
 	for i in range(0, Config.qtdIteracoes):
 		#print('##\n\t\titeracao ' + str(i) + '\n##')
-		g.ag()
+		if g.ag(): 
+			return g.solucao
+			
 	#print('##\n\t\tfim algoritmo\n##')
 	#print(g.solucao)
 	return g.solucao
