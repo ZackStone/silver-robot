@@ -6,6 +6,7 @@ class Cruzamento:
 		r = random.uniform(0.0, 1.0)
 		pode = (r <= Config.taxaCruzamento)
 		return pode
+		
 	def cruzar(populacao):
 		#print('\n\n')
 
